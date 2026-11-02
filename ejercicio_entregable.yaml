@@ -1,0 +1,45 @@
+
+name: Ejercicio Entregable
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_security_tests:
+        type: boolean
+        description: Ejecutar Tests de Seguridad
+        default: true
+
+jobs:
+  ci_security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar que ventas.json existe
+        run: ls ventas.json
+
+      - name: Validar que ventas.json es un JSON válido
+        run: python3 -m json.tool ventas.json
+
+      - name: Tests de Seguridad
+        if: ${{ inputs.run_security_tests == true }}
+        run: python3 scripts/security_scan.py
+
+  processing:
+    # (el job de arriba)
+
+  notify_success:
+    runs-on: ubuntu-latest
+    needs: [ci_security, processing]
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    steps:
+      - name: Comprobar secreto
+        run: |
+          if [ -z "$DISCORD_WEBHOOK" ]; then
+            echo "Falta el secreto DISCORD_WEBHOOK"
+            exit 1
+          fi
+
+      - name: Simular notificación
+        run: echo "Enviando notificación a $DISCORD_WEBHOOK"

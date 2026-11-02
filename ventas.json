@@ -1,0 +1,7 @@
+{
+  "ventas": [
+    { "id": 1, "producto": "Teclado", "cantidad": 3, "precio": 25.50 },
+    { "id": 2, "producto": "Raton", "cantidad": 5, "precio": 12.00 },
+    { "id": 3, "producto": "APIkey", "cantidad": 1, "precio": 100 }
+  ]
+}
