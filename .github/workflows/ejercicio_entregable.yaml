@@ -26,7 +26,6 @@ jobs:
         run: python3 ejecutables/security_scan.py
 
   processing:
-    # (el job de arriba)
 
   notify_success:
     runs-on: ubuntu-latest
