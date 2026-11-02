@@ -23,7 +23,7 @@ jobs:
 
       - name: Tests de Seguridad
         if: ${{ inputs.run_security_tests == true }}
-        run: python3 scripts/security_scan.py
+        run: python3 ejecutables/security_scan.py
 
   processing:
     # (el job de arriba)
